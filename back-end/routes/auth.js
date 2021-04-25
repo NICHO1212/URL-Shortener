@@ -3,7 +3,9 @@ const router = express.Router();
 const User = require('../models/User');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {registerValidation, loginValidation} = require('../validation');
+const {loginValidation} = require('../validation');
+/*
+const {registerValidation} = require('../validation');
 
 //REGISTER
 router.post('/register', async (req, res) => {
@@ -24,6 +26,7 @@ router.post('/register', async (req, res) => {
     return res.status(400).send('Oops! Something went wrong');
   };
 });
+*/
 
 //LOGIN
 router.post('/login', async (req, res) => {

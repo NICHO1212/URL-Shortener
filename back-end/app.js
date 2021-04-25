@@ -9,17 +9,12 @@ app.use(cors());
 app.use(express.json());
 
 //IMPORT ROUTES
-const postsRoute = require('./routes/posts');
 const authRoutes = require('./routes/auth');
+const urlRoutes = require('./routes/url');
 
 //ROUTE MIDDLEWARES
-app.use('/posts', postsRoute);
 app.use('/auth', authRoutes);
-
-//ROUTES 
-app.get('/', (req, res) => {
-  res.send('We are on home');
-});
+app.use('/', urlRoutes);
 
 //DB
 mongoose.connect(
