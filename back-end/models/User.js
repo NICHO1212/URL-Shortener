@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const UserSchema = mongoose.Schema({
-  name: {
-    type: String
-  },
-  email: {
+  username: {
     type: String,
     unique: true
   },
@@ -12,10 +9,6 @@ const UserSchema = mongoose.Schema({
     type: String
   },
   created_at: {
-    type: Date,
-    default: Date.now
-  },
-  updated_at: {
     type: Date,
     default: Date.now
   }

@@ -14,8 +14,7 @@ router.post('/register', async (req, res) => {
   const salt = await bcryptjs.genSalt(10);
   const hashedPassword = await bcryptjs.hash(req.body.password, salt);
   const user = new User({
-    name: req.body.name,
-    email: req.body.email,
+    username: req.body.username,
     password: hashedPassword
   });
   try {
@@ -32,7 +31,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const {error} = loginValidation(req.body);
   if (error) { return res.status(400).send(error.details[0].message); }
-  const user = await User.findOne({email: req.body.email});
+  const user = await User.findOne({username: req.body.username});
   if (!user) { return res.status(400).send('The email or the password is incorrect!'); }
   const validPassword = await bcryptjs.compare(req.body.password, user.password)
   if (!validPassword) { return res.status(400).send('The email or the password is incorrect!'); }
