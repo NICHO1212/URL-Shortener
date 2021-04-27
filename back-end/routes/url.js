@@ -19,7 +19,7 @@ const get_short_url = size => {
 }
 
 //ALL URLS
-router.get('/', verifyJWT, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const urls = await Url.find();
     return res.status(200).send(urls);
@@ -29,7 +29,7 @@ router.get('/', verifyJWT, async (req, res) => {
 });
 
 //ADD AN URL TO DB
-router.post('/add_url', verifyJWT, async (req, res) => {
+router.post('/add_url', async (req, res) => {
 
   //VALIDATE INPUTS
   const {error} = addUrlValidation(req.body);
@@ -69,7 +69,7 @@ router.post('/add_url', verifyJWT, async (req, res) => {
 });
 
 //GET ORIGINAL URL
-router.get('/:short_url', verifyJWT, async (req, res) => {
+router.get('/:short_url', async (req, res) => {
   try {
     //VALIDATE IF URL IS IN DB
     var url = await Url.findOne({short_url: req.params.short_url});
