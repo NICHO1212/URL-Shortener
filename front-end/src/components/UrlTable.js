@@ -1,49 +1,64 @@
-import React, {useState, useEffect} from 'react';
+import React, {Component} from 'react';
+import axios from 'axios';
 
-function UrlTable() {
+export class UrlTable extends Component {
 
-  useEffect(() => {
-    getUrls();
-  }, []);
+  constructor(props) {
+    super(props);
+    this.state = {
+      urls: []
+    };
+  }
 
-  const [urls, setUrls] = useState([]);
+  getUrlsHandler = () => {
+    axios.get("http://localhost:3001/")
+      .then(response => {
+        this.setState({urls: response.data});
+      });
+  }
+
+  getUrlHandler = (short_url) => {
+    axios.get("http://localhost:3001/" + short_url)
+      .then(response => {
+        this.getUrlsHandler();
+      });
+  }
+
+  componentDidMount() {
+    this.getUrlsHandler();
+  }
   
-  const get_url = "http://localhost:3001/";
 
-  const getUrls = async () => {
-    const data = await fetch(get_url);
-    setUrls(await data.json());
-  };
+  render() {
+    const {urls} = this.state;
 
-  const getUrl = async (short_url) => {
-    await fetch(get_url + short_url);
-    getUrls();
-  };
-
-  return(
-    <table className="table table-hover">
-      <thead>
-        <tr>
-          <th>Short Url</th>
-          <th>Requests</th>
-          <th>Go There</th>
-        </tr>
-      </thead>
-      <tbody>
-        {urls.map(url => (
-          <tr key={url._id}>
-            <td>{url.short_url}</td>
-            <td>{url.count}</td>
-            <td>
-              <a href={url.url} className="btn btn-info" onClick={() => getUrl(url.short_url)} target="_blank" rel="noreferrer">
-                <i className="fas fa-link"></i>
-              </a>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+    return(
+      <div>
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th>Short Url</th>
+              <th>Requests</th>
+              <th>Go There</th>
+            </tr>
+          </thead>
+          <tbody>
+            {urls.map(url => (
+              <tr key={url._id}>
+                <td>{url.short_url}</td>
+                <td>{url.count}</td>
+                <td>
+                  <a href={url.url} className="btn btn-info" onClick={() => this.getUrlHandler(url.short_url)} target="_blank" rel="noreferrer">
+                    <i className="fas fa-link"></i>
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
 
 export default UrlTable;
