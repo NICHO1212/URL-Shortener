@@ -68,10 +68,10 @@ router.post('/add_url', async (req, res) => {
   };
 });
 
-//GET ORIGINAL URL
+//GET URL BY SHORT_URL
 router.get('/:short_url', async (req, res) => {
   try {
-    //VALIDATE IF URL IS IN DB
+    //VALIDATE IF SHORT_URL IS IN DB
     var url = await Url.findOne({short_url: req.params.short_url});
     if (url) {
       //UPDATE THE COUNT
