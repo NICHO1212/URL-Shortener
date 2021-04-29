@@ -9,10 +9,18 @@ body {
   min-height: 100vh;
 }
 
-.row {
-  margin: 2rem 0 2rem 0;
+.row, h3 {
+  padding: 1rem 0 1rem 0;
 }
 
 .button-group {
   padding-bottom: 1rem;
+}
+
+.table {
+  table-layout: fixed;
+}
+
+th, td {
+  overflow: hidden;
 }
