@@ -14,3 +14,7 @@ For this challenge you need to use at least
 * MongoDB as Database
 * React or Angular frontend
 * Bootstrap or Material UI
+
+Here is the sign in data:
+* Username: Admin
+* Password: root2021
